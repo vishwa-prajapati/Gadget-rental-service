@@ -1,0 +1,66 @@
+{% extends 'Header.html' %}
+{% block content %}
+<body>
+    <h2>Chat with Owner</h2>
+    <div id="chat-box"></div>
+    <input type="text" id="message" placeholder="Type a message...">
+    <button id="send">Send</button>
+
+    <script>
+        const owner_id = "{{ owner_id }}";
+        const user_id = "{{ user_id }}";
+        const chatBox = document.getElementById("chat-box");
+        const messageInput = document.getElementById("message");
+        let ws;
+
+        function connectWebSocket() {
+            ws = new WebSocket(`ws://localhost:20000/ws/${owner_id}/${user_id}`);
+
+            ws.onopen = function() {
+                console.log("WebSocket connected.");
+            };
+
+            ws.onmessage = function(event) {
+                let message = document.createElement("p");
+                message.innerText = event.data;
+                chatBox.appendChild(message);
+                chatBox.scrollTop = chatBox.scrollHeight;  // Auto-scroll
+            };
+
+            ws.onclose = function(event) {
+                console.log("WebSocket disconnected.", event);
+                setTimeout(connectWebSocket, 3000); // Reconnect after 3 seconds
+            };
+
+            ws.onerror = function(error) {
+                console.error("WebSocket Error:", error);
+            };
+        }
+
+        document.getElementById("send").onclick = function() {
+            if (ws.readyState === WebSocket.OPEN) {
+                let message = messageInput.value;
+                ws.send(message);
+                messageInput.value = "";
+            } else {
+                console.log("WebSocket is not open. Reconnecting...");
+                connectWebSocket(); // Try reconnecting
+            }
+        };
+
+        // Connect WebSocket when the page loads
+        connectWebSocket();
+    </script>
+
+    <style>
+        #chat-box {
+            width: 50%;
+            height: 300px;
+            border: 1px solid black;
+            overflow-y: auto;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</body>
+{% endblock %}

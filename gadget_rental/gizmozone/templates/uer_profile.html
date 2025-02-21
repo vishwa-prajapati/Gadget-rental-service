@@ -1,0 +1,37 @@
+{% extends 'Header.html' %}
+{% include 'includes/applicationHeader.html' %}
+
+{% block content %}
+<div id="user_con"> 
+    <input class="hidden" id="user_page" value="{{user_id}}" data-user-id="{{ user_id }}">
+    
+    <div class="user-container">
+        <!-- User Profile Section -->
+        <div class="userprofile">
+            <h2 style="
+    font-size: 4rem;
+">User Profile</h2>
+            <div class="profile-details">
+                <p class="hidden"><strong>User ID:</strong> {{profile['user_id']}}</p>
+                <p style="font-size: 28px;"><strong>First Name:</strong> {{profile['first_name']}}</p>
+                <p style="font-size: 28px;"><strong>Last Name:</strong> {{profile['last_name']}}</p>
+                <p style="font-size: 28px;"><strong>Email:</strong> {{profile['email']}}</p>
+                <p style="font-size: 28px;"><strong>Phone:</strong> {{profile['phone_no']}}</p>
+                <p style="font-size: 28px;"><strong>Address:</strong> {{profile['address']}}</p>
+                <p style="font-size: 28px;"><strong>City:</strong> {{profile['city']}}</p>
+            </div>
+        </div>
+
+        <!-- User Links Section -->
+        <div class="userlinks"> 
+            <h2 style="
+    font-size: 4rem;">Actions</h2>
+            <a href="update_user/{{profile['email']}}">Update</a>
+            <a href="/get_user_item_page">Your items</a>
+        </div>
+    </div>
+</div>
+
+{% include 'includes/footer.html' %}
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'Header.html' %}
+{% include 'includes/applicationHeader.html' %}
+
+{% block content %}
+
+<div class="mb-4" style="
+    margin-left: 20%;
+">
+    <label for="categorySelect" class="form-label" style="
+    margin-right: 0.5%;
+    font-size: 16px;
+">Select a Category:</label>
+    <select id="categoryDropdown" class="form-select" style="
+    width: 50%;
+    margin-top: 1%;
+    /* margin: auto; */
+">
+        <option value="">-- Choose a Category --</option>
+        <option value="phone">Phone</option>
+        <option value="cameras">cameras</option>
+        <option value="Phones">phones</option>
+        <option value="furniture">Furniture</option>
+    </select>
+</div>
+<div class="containerOfHome">
+    <!-- The gallery where the item cards will be displayed -->
+    <div id="gallery" data-user-id="{{ user_id }}"  ></div>
+</div>
+
+
+<!-- Card 2 (or additional content can go here) -->
+
+{% include 'includes/footer.html' %}
+
+<script>
+$(document).ready(function () {
+        register_login_events();
+    });
+    // Call the function to fetch and display items
+    fetchItems();
+</script>
+
+{% endblock %}

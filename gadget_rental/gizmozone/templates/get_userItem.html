@@ -1,0 +1,23 @@
+{% extends 'Header.html' %}
+{% include 'includes/applicationHeader.html' %}
+
+{% block content %}
+
+<body>
+    <input id="user_page" value="{{user_id}}" data-user-id="{{ user_id }}"> {{user_id}}</input>
+
+    <div id="user_item"></div>
+</body>
+
+
+{% include 'includes/footer.html' %}
+<script>
+    $(document).ready(function () {
+        
+        get_user_item()
+    });
+</script>
+{% endblock %}
+   
+
+   

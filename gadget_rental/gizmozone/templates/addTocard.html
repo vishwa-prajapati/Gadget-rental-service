@@ -1,0 +1,52 @@
+{% extends 'Header.html' %}
+{% include 'includes/applicationHeader.html' %}
+
+{% block content %}
+<body>
+  <div id="containerOfaddToCard" data-user-id="{{ user_id }}">
+    <!-- <div class="item-card">
+        <img src="" alt="" class="item-image" />
+        <h3>$product name</h3>
+        <p> Key Features</p>
+        <p>&#8377;price/day</p>
+        <p>Product ID: </p>
+    </div> -->
+
+    <div id="galleryOfAddCard">
+      <!-- Dynamically loaded cart items will appear here -->
+      
+    </div>
+    <div id="paypal-button-container" style=" margin: auto;"></div>
+    <p id="result-message"></p>
+
+
+    
+    <!-- Initialize the JS-SDK -->
+   
+    
+</div>
+
+  
+
+  {% include 'includes/footer.html' %}
+
+  
+<script
+src="https://www.paypal.com/sdk/js?client-id=test&buyer-country=US&currency=USD&components=buttons&enable-funding=venmo,paylater,card"
+data-sdk-integration-source="developer-studio"
+></script>
+
+<script>
+    
+  // Fetch items on page load
+  $(document).ready(function () {
+    loadCartItems()
+    register_login_events()
+    // addToCart()
+  });
+      
+      
+  </script>
+  {% endblock %}
+  
+

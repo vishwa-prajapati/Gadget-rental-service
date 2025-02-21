@@ -1,0 +1,51 @@
+{% extends 'Header.html' %}
+{% include 'includes/applicationHeader.html' %}
+
+{% block content %}
+
+<h1 style="text-align: center; margin-top: 20px;" id="productPage" data-user-id="{{ user_id }}"></h1>
+
+<div class="card-body">
+    <form id="userupdateForm" method="put">
+        <p><strong>User ID:</strong><span id="user_id"></span></p>
+        <p style="font-size: 10px;">Role : {{role}}<p>
+      
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="{{ profile['email'] }}" >
+
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" value="{{ profile['first_name'] }}" >
+
+        <label for="first_name">First Name:</label>
+        <input type="text" id="last_name" value="{{ profile['last_name'] }}" >
+
+        <label for="phone_no">Phone Number:</label>
+        <input type="text" id="phone_no" value="{{ profile['phone_no'] }}" >
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" value="{{ profile['address'] }}" >
+
+        <label for="first_name"> City:</label>
+        <input type="text" id="city" value="{{ profile['city'] }}" >
+
+        <button type="submit" id="userProfile" class="btn btn-primary w-100">Update</button>
+    </form>
+</div>
+
+
+</div>
+
+
+<!-- Card 2 (or additional content can go here) -->
+
+{% include 'includes/footer.html' %}
+
+<script>
+ $(document).ready(function () {
+        register_login_events();
+    });
+  
+   
+</script>
+
+{% endblock %}

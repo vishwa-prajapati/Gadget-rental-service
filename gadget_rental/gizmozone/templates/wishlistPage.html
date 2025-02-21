@@ -1,0 +1,24 @@
+{% extends 'Header.html' %}
+{% include 'includes/applicationHeader.html' %}
+
+{% block content %}
+
+<body>
+    
+        <h1 style="text-align: center; margin-top: 20px;"> Wishlist Section</h1>
+        <div id="containerOfaddToWishlist"></div>
+        <div id="wishlist-container" data-user-id="{{ user_id }}">
+
+   
+</body>
+
+
+{% include 'includes/footer.html' %}
+<script>
+    $(document).ready(function () {
+        register_login_events()
+        fetchWishlistItems()
+    });
+</script>
+{% endblock %}
+   

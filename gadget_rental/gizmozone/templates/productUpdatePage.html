@@ -1,0 +1,55 @@
+{% extends 'Header.html' %}
+{% include 'includes/applicationHeader.html' %}
+
+{% block content %}
+
+
+<body>
+    <h1>Update Product</h1>
+    <form id="updateForm" method="put">
+        <input type="hidden" id="item_id" value="{{ form_data['item_id'] }}">
+
+        <label for="product_name">Product Name:</label>
+        <input type="text" id="product_name" name="product_name" value="{{ form_data['product_name'] }}" required><br>
+
+        <label for="rental_price_per_day">Rental Price (per day):</label>
+        <input type="number" id="rental_price_per_day" name="rental_price_per_day" value="{{ form_data['rental_price_per_day'] }}" required><br>
+
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" value="{{ form_data['category'] }}" required><br>
+
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" name="brand" value="{{ form_data['brand'] }}" required><br>
+
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model" value="{{ form_data['model'] }}" required><br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" value="{{ form_data['location'] }}" required><br>
+
+        <label for="availability_status">Availability:</label>
+        <select id="availability_status" name="availability_status" required>
+            <option value="Available" {{ 'selected' if form_data['availability_status'] == 'Available' else '' }}>Available</option>
+            <option value="Unavailable" {{ 'selected' if form_data['availability_status'] == 'Unavailable' else '' }}>Unavailable</option>
+        </select><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required>{{ form_data['description'] }}</textarea><br>
+
+        <label for="key_feature">Key Feature:</label>
+        <textarea id="key_feature" name="key_feature">{{ form_data['key_feature'] }}</textarea><br>
+
+        <button type="submit" id="updatebtn">Update</button>
+    </form>
+
+    <div id="statusMessage"></div>
+</body>
+
+
+{% include 'includes/footer.html' %}
+<script>
+    $(document).ready(function () {
+        register_login_events()
+    });
+</script>
+{% endblock %}

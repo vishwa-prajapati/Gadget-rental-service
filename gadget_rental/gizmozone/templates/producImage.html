@@ -1,0 +1,117 @@
+{% extends 'Header.html' %}
+{% include 'includes/applicationHeader.html' %}
+
+{% block content %}
+
+<body>
+    <h1 style="text-align: center; margin-top: 20px;" id="productPage" data-user-id="{{ user_id }}">Product Detail</h1>
+
+    <div class="product-details-container">
+        <!-- Product Image -->
+        <div class="product-image">
+            <img src="data:image/jpeg;base64,{{ product['image_data'] }}" alt="{{ product['product_name'] }}">
+        </div>
+
+        <!-- Product Information -->
+        <div class="product-info" data-user-id="{{ user_id }}">
+            <h1>{{ product['product_name'] }}</h1>
+            <p>owner: {{product['user_id'] }}</p>
+            <p class="product-price">₹{{ product['rental_price_per_day'] }}/day</p>
+            <p class="product-category"><strong>Category:</strong> {{ product['category'] }}</p>
+            <p class="product-brand"><strong>Brand:</strong> {{ product['brand'] }}</p>
+            <p class="product-model"><strong>Model:</strong> {{ product['model'] }}</p>
+            <p class="product-location"><strong>Location:</strong> {{ product['location'] }}</p>
+            <p class="product-availability">
+                <strong>Availability:</strong> 
+                <span class="{{ 'available' if product['availability_status'] == 'Available' else 'unavailable' }}">
+                    {{ product['availability_status'] }}
+                </span>
+            </p>
+            <p class="product-description"><strong>Description:</strong> {{ product['description'] }}</p>
+            <p class="product-key-feature"><strong>Key Feature:</strong> {{ product['key_feature'] }}</p>
+            <input class="hidden" value="{{product['item_id']}}" id="productId" name="productId">
+
+        </div>
+    </div>
+    <div id="buttons" style="  margin-left: 42%;"> 
+    <button id="placeOrder" onclick="addToCart('{{product['item_id']}}')">Add to Cart</button>
+    {% if product['user_id'] == user_id %}
+    <a href="/update/{{product['item_id']}}" class="card-button">Update</a>
+    <button class="deletebtn" id="delete-btn"> Delete</button>
+    {% endif %}
+</div>
+<div><h1 style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+"> Find Location in Map </h1></div>
+<div id="map" style="width: 100%; height: 500px; margin-top: 5%; "></div>
+</body>
+
+{% include 'includes/footer.html' %}
+<script>
+    $(document).ready(function() {
+        register_login_events()
+       
+    });
+</script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var locationName = "{{ product['location'] }}"; // Location (e.g., "Ahmedabad, India")
+
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${locationName}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                var lat = data[0].lat;
+                var lon = data[0].lon;
+
+                // Initialize the map
+                var map = L.map('map').setView([lat, lon], 13);
+
+                // Add OpenStreetMap tiles
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                // Add a marker for the location
+                L.marker([lat, lon]).addTo(map)
+                    .bindPopup(locationName)
+                    .openPopup();
+            } else {
+                alert("Location not found!");
+            }
+        })
+        .catch(error => console.log("Error fetching location:", error));
+
+// for chatting----------------------------------------
+async function fetchInterestedBuyers(productId) {
+    try {
+        const response = await fetch(`http://127.0.0.1:20000/product/${productId}`);
+        const data = await response.json();
+
+        if (data.interested_buyers.length > 0) {
+            let buyersList = "";
+            data.interested_buyers.forEach(buyer => {
+                buyersList += `<a href="/chat/${data.product.user_id}/${buyer.buyer_id}" class="card-button">Chat with ${buyer.name}</a><br>`;
+            });
+            document.getElementById("interested-buyers").innerHTML = buyersList;
+        } else {
+            document.getElementById("interested-buyers").innerHTML = "<p>No interested buyers yet.</p>";
+        }
+    } catch (error) {
+        console.error("Error fetching interested buyers:", error);
+        document.getElementById("interested-buyers").innerHTML = "<p>Failed to load buyers.</p>";
+    }
+}
+
+// Call function when page loads
+document.addEventListener("DOMContentLoaded", () => {
+    const productId = "{{ product['item_id'] }}";  // Ensure this variable is correctly passed from Flask
+    fetchInterestedBuyers(productId);
+});
+</script>
+
+{% endblock %}
+   
