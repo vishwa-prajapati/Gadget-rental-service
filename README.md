@@ -27,7 +27,7 @@ A web-based platform developed as part of the SURE-Trust initiative to help stud
 - FastAPI (for REST APIs and data operations)
 
 **Database:**  
-- SQLite / PostgreSQL / MongoDB (choose one based on your setup)
+-  PostgreSQL
 
 ---
 
