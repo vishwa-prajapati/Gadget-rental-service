@@ -48,14 +48,16 @@ A web-based platform developed as part of the SURE-Trust initiative to help stud
 ---
 ## 📈 Future Enhancements
 
-📱 Native mobile app (Android/iOS)
-🧠 AI-based gadget recommendations
-🔐 KYC verification for users
-📊 Admin analytics dashboard
-🌍 Multi-language support
+- 📱 Native mobile app (Android/iOS)
+- 🧠 AI-based gadget recommendations
+- 🔐 KYC verification for users
+- 📊 Admin analytics dashboard
+- 🌍 Multi-language support
 
 ---
 ## 🤝 Contributing
+
+
 Contributions are welcome!
 Fork the repo, make changes, and open a pull request. For major changes, please open an issue first to discuss what you’d like to change.
 
