@@ -1,5 +1,4 @@
-# 📊 SURE-Trust-Comprehensive-Student-Commerce WebApp  
-## 🎯 Gadget Rental Service Platform
+# 🎯 Gadget Rental Service Platform
 
 A web-based platform developed as part of the SURE-Trust initiative to help students and users **rent gadgets** like smartphones, laptops, cameras, and tablets. Built using Flask and FastAPI, the app offers a seamless rental experience with flexible plans, secure access, and a simple UI.
 
